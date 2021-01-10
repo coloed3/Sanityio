@@ -1,60 +1,63 @@
-import { MdLocalPizza as icon } from "react-icons/md";
+import { MdLocalPizza as icon } from 'react-icons/md';
+
+import PriceInput from '../components/priceInput';
 
 export default {
-  name: "pizza",
-  title: "Pizza",
-  type: "document",
+  name: 'pizza',
+  title: 'Pizza',
+  type: 'document',
   icon,
   fields: [
     {
-      name: "name",
-      title: "Pizza Name",
-      type: "string",
-      description: "Name of the pizza ",
+      name: 'name',
+      title: 'Pizza Name',
+      type: 'string',
+      description: 'Name of the pizza ',
     },
 
     {
-      name: "slug",
-      title: "Slug",
-      type: "slug",
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
       options: {
-        source: "name",
+        source: 'name',
         maxLength: 100,
       },
     },
     {
-      name: "image",
-      title: "Image",
-      type: "image",
+      name: 'image',
+      title: 'Image',
+      type: 'image',
       options: {
         hotspot: true,
       },
     },
     {
-      name: "price",
-      title: "Price",
-      type: "number",
-      description: "Price of the pizza in cents",
+      name: 'price',
+      title: 'Price',
+      type: 'number',
+      description: 'Price of the pizza in cents',
       validation: (Rule) => Rule.min(1000),
       // Todo add custom component
+      inputComponent: PriceInput,
     },
 
     {
-      name: "toppings",
-      title: "Toppings",
-      type: "array",
-      of: [{ type: "reference", to: [{ type: "topping" }] }],
+      name: 'toppings',
+      title: 'Toppings',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'topping' }] }],
     },
   ],
 
   preview: {
     select: {
-      title: "name",
-      media: "image",
-      topping0: "toppings.0.name",
-      topping1: "toppings.1.name",
-      topping2: "toppings.2.name",
-      topping3: "toppings.3.name",
+      title: 'name',
+      media: 'image',
+      topping0: 'toppings.0.name',
+      topping1: 'toppings.1.name',
+      topping2: 'toppings.2.name',
+      topping3: 'toppings.3.name',
     },
     prepare: ({ title, media, ...toppings }) => {
       // filter undefine toppings out
@@ -68,7 +71,7 @@ export default {
       return {
         title,
         media,
-        subtitle: Object.values(tops).join(", "),
+        subtitle: Object.values(tops).join(', '),
       };
     },
   },
